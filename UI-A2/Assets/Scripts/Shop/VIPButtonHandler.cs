@@ -51,12 +51,14 @@ public class VIPButtonHandler : MonoBehaviour
         VIP3_PopUp.gameObject.SetActive(false);
         VIP4_PopUp.gameObject.SetActive(false);
 
+        //Main buttons
         VIPButton_Active = true;
         AvatarButton_Active = true;
         PowerUpButton_Active = true;
         GemButton_Active = true;
         BackButton_Active = true;
 
+        //Option Buttons
         VIP1_Active = true;
         VIP2_Active = true;
         VIP3_Active = true;
