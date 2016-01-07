@@ -24,13 +24,13 @@ public class SceneChanger : MonoBehaviour
         }
     }
 
-    //public void ChangeToLvlSelect()
-    //{
-    //    if (Input.GetMouseButtonUp(0))
-    //    {
-    //        Application.LoadLevel("LevelSelect");
-    //    }
-    //}
+    public void ChangeToLvlSelect()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            Application.LoadLevel("LevelSelect");
+        }
+    }
 
     public void ChangeToCredits()
     {
@@ -40,43 +40,43 @@ public class SceneChanger : MonoBehaviour
         }
     }
 
-    //public void ChangeToHS()
-    //{
-    //    if (Input.GetMouseButtonUp(0))
-    //    {
-    //        Application.LoadLevel("Highscore");
-    //    }
-    //}
+    public void ChangeToHS()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            Application.LoadLevel("Highscore");
+        }
+    }
 
-    //public void ChangeToInfo()
-    //{
-    //    if (Input.GetMouseButtonUp(0))
-    //    {
-    //        Application.LoadLevel("InfoScreen");
-    //    }
-    //}
+    public void ChangeToInfo()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            Application.LoadLevel("InfoScreen");
+        }
+    }
 
-    //public void ChangeToShop()
-    //{
-    //    if (Input.GetMouseButtonUp(0))
-    //    {
-    //        Application.LoadLevel("Shop");
-    //    }
-    //}
+    public void ChangeToShop()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            Application.LoadLevel("Shop");
+        }
+    }
 
-    //public void ChangeToFL()
-    //{
-    //    if (Input.GetMouseButtonUp(0))
-    //    {
-    //        Application.LoadLevel("FriendList");
-    //    }
-    //}
+    public void ChangeToFL()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            Application.LoadLevel("FriendList");
+        }
+    }
 
-    //public void ChangeToOption()
-    //{
-    //    if (Input.GetMouseButtonUp(0))
-    //    {
-    //        Application.LoadLevel("Option");
-    //    }
-    //}
+    public void ChangeToOption()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            Application.LoadLevel("Option");
+        }
+    }
 }

@@ -34,19 +34,17 @@ public class ParentButtonScript : MonoBehaviour
     public static bool OptionActive;
 
     public Image Wheel;
-    private float NumAngles;
     private float WheelAngle;
-    static public float[] AngleList = new float[6];
-    Vector3 initialPoint, finalPoint;
+    private float NumAngles = 6;    //Number of buttons
+
+    private Vector3 initialPoint, finalPoint;
+    private Vector3 finalPos;
+    private float initialTime, endTime, flickSpeed, RotationSpeed;
 
     // Use this for initialization
     void Start()
     {
-        NumAngles = 6;
-        for(int i = 1; i < NumAngles; ++i)
-        {
-            AngleList[i] = AngleList[0] + i * 60;
-        }
+        RotationSpeed = 400.0f;
     }
 
     // Update is called once per frame
@@ -54,62 +52,129 @@ public class ParentButtonScript : MonoBehaviour
     {
 
     }
-
-    public void MouseDown()
-    {
-        initialPoint = Input.mousePosition;
-    }
     
     public void SpinWheel()
     {
-        Vector3 newPos;
-        Vector3 finalPos;
-        float WheelArc = Wheel.rectTransform.rect.width / 2;
-
         //Drag direction check
-        finalPoint = Input.mousePosition;
+        initialPoint = Input.mousePosition;
         Vector3 difference = finalPoint - initialPoint;
-        
-        WheelAngle += difference.y * 0.001f;
+
+        WheelAngle = difference.normalized.y * RotationSpeed * Time.deltaTime;
+        finalPoint = Input.mousePosition;
 
         //Calc the angle to spin for all buttons
         for (int i = 0; i < NumAngles; ++i)
         {
-            AngleList[i] += WheelAngle;
-            newPos = new Vector3(Wheel.rectTransform.position.x * Mathf.Sin(AngleList[i]), Wheel.rectTransform.position.y * Mathf.Cos(AngleList[i]), 0.0f);
-            finalPos = Wheel.rectTransform.position + (newPos).normalized * WheelArc;
-
             switch (i)
             {
                 case 0:
-                    PlayBtn.transform.position = finalPos;
-                    PlayBtnPos = finalPos;
+                    finalPos = RotatePointAroundPoint(OptionBtn.transform.position, Wheel.rectTransform.position, Quaternion.Euler(0, 0, WheelAngle));
+                    OptionBtn.transform.position = finalPos;
+                    OptionBtnPos = finalPos;
                     break;
                 case 1:
+                    finalPos = RotatePointAroundPoint(CreditsBtn.transform.position, Wheel.rectTransform.position, Quaternion.Euler(0, 0, WheelAngle));
                     CreditsBtn.transform.position = finalPos;
                     CreditsBtnPos = finalPos;
+                    break;
+                case 2:
+                    finalPos = RotatePointAroundPoint(HSBtn.transform.position, Wheel.rectTransform.position, Quaternion.Euler(0, 0, WheelAngle));
+                    HSBtn.transform.position = finalPos;
+                    HSBtnPos = finalPos;
+                    break;
+                case 3:
+                    finalPos = RotatePointAroundPoint(InfoBtn.transform.position, Wheel.rectTransform.position, Quaternion.Euler(0, 0, WheelAngle));
+                    InfoBtn.transform.position = finalPos;
+                    InfoBtnPos = finalPos;
+                    break;
+                case 4:
+                    finalPos = RotatePointAroundPoint(ShopBtn.transform.position, Wheel.rectTransform.position, Quaternion.Euler(0, 0, WheelAngle));
+                    ShopBtn.transform.position = finalPos;
+                    ShopBtnPos = finalPos;
+                    break;
+                case 5:
+                    finalPos = RotatePointAroundPoint(FLBtn.transform.position, Wheel.rectTransform.position, Quaternion.Euler(0, 0, WheelAngle));
+                    FLBtn.transform.position = finalPos;
+                    FLBtnPos = finalPos;
                     break;
                 default:
                     break;
             }
-            
         }
-        
-        
-        //newPos = Wheel.rectTransform.position + (Wheel.rectTransform.position).normalized * WheelArc;
-        
-        
-        
-        //TODO: Wheel rotation
-        //if(buttonType == PlayBtn)
-        //{
-        //    buttonType.transform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1.0f);
-        //    PlayBtnPos = buttonType.transform.position;
-        //}
-        //if (buttonType == CreditsBtn)
-        //{
-        //    buttonType.transform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1.0f);
-        //    CreditsBtnPos = buttonType.transform.position;
-        //}
+    }
+
+    Vector3 RotatePointAroundPoint(Vector3 point, Vector3 pivot, Quaternion angle)
+    {
+        return angle * (point - pivot) + pivot;
+    }
+
+    public void FlickBegin()
+    {
+        //Store pos of flick
+        initialPoint = Input.mousePosition;
+        initialTime += Time.deltaTime;
+    }
+
+    public void FlickEnd()
+    {
+        if(initialTime != 0.0f)
+        {
+            finalPoint = Input.mousePosition;
+            flickSpeed = (finalPoint - initialPoint).magnitude / initialTime;
+            
+
+            Vector3 difference = finalPoint - initialPoint;
+
+            WheelAngle = difference.normalized.y * flickSpeed * Time.deltaTime;
+
+            //Calc the angle to spin for all buttons
+            for (int i = 0; i < NumAngles; ++i)
+            {
+                switch (i)
+                {
+                    case 0:
+                        finalPos = RotatePointAroundPoint(OptionBtn.transform.position, Wheel.rectTransform.position, Quaternion.Euler(0, 0, WheelAngle));
+                        OptionBtn.transform.position = finalPos;
+                        OptionBtnPos = finalPos;
+                        break;
+                    case 1:
+                        finalPos = RotatePointAroundPoint(CreditsBtn.transform.position, Wheel.rectTransform.position, Quaternion.Euler(0, 0, WheelAngle));
+                        CreditsBtn.transform.position = finalPos;
+                        CreditsBtnPos = finalPos;
+                        break;
+                    case 2:
+                        finalPos = RotatePointAroundPoint(HSBtn.transform.position, Wheel.rectTransform.position, Quaternion.Euler(0, 0, WheelAngle));
+                        HSBtn.transform.position = finalPos;
+                        HSBtnPos = finalPos;
+                        break;
+                    case 3:
+                        finalPos = RotatePointAroundPoint(InfoBtn.transform.position, Wheel.rectTransform.position, Quaternion.Euler(0, 0, WheelAngle));
+                        InfoBtn.transform.position = finalPos;
+                        InfoBtnPos = finalPos;
+                        break;
+                    case 4:
+                        finalPos = RotatePointAroundPoint(ShopBtn.transform.position, Wheel.rectTransform.position, Quaternion.Euler(0, 0, WheelAngle));
+                        ShopBtn.transform.position = finalPos;
+                        ShopBtnPos = finalPos;
+                        break;
+                    case 5:
+                        finalPos = RotatePointAroundPoint(FLBtn.transform.position, Wheel.rectTransform.position, Quaternion.Euler(0, 0, WheelAngle));
+                        FLBtn.transform.position = finalPos;
+                        FLBtnPos = finalPos;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        //Decrease speed overtime
+        if (flickSpeed > 0.0f)
+        {
+            flickSpeed -= Time.deltaTime;
+        }
+        else
+        {
+            initialTime = 0.0f;
+        }
     }
 }
