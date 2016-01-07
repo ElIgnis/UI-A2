@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class AvatarButtonHandler : MonoBehaviour
 {
+    //Main Buttons
     public Button VIPButton;
     public Button AvatarButton;
     public Button PowerUpButton;
