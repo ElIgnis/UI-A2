@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class ButtonHandler : MonoBehaviour
+public class AvatarButtonHandler : MonoBehaviour
 {
     public Button VIPButton;
     public Button AvatarButton;
@@ -26,6 +26,7 @@ public class ButtonHandler : MonoBehaviour
                 AvatarButton_Active,
                 PowerUpButton_Active,
                 GemButton_Active,
+                BackButton_Active,
                 SaberOptionButton_Active,
                 RinOptionButton_Active,
                 ShikiOptionButton_Active;
@@ -46,6 +47,7 @@ public class ButtonHandler : MonoBehaviour
         SaberOptionButton_Active = true;
         RinOptionButton_Active = true;
         ShikiOptionButton_Active = true;
+        BackButton_Active = true;
 
         PopUpBuyButton.gameObject.SetActive(false);
         PopUpBackButton.gameObject.SetActive(false);
@@ -60,6 +62,37 @@ public class ButtonHandler : MonoBehaviour
 
     }
 
+    //Main Wheel Selected
+    public void VIPButtonSelected()
+    {
+        if(VIPButton_Active)
+        {
+            gameObject.GetComponent<SceneChanger>().ChangeToVIPShop();
+        }
+    }
+    public void GemButtonSelected()
+    {
+        if (GemButton_Active)
+        {
+            gameObject.GetComponent<SceneChanger>().ChangeToGemShop();
+        }
+    }
+    public void PowerUpButtonSelected()
+    {
+        if (PowerUpButton_Active)
+        {
+            gameObject.GetComponent<SceneChanger>().ChangeToPowerUpShop();
+        }
+    }
+    public void BackButtonSelected()
+    {
+        if (BackButton_Active)
+        {
+            gameObject.GetComponent<SceneChanger>().ChangeToMenu();
+        }
+    }
+
+    //Avatar Options Selected
     public void SaberOptionSelected()
     {
         if (SaberOptionButton_Active)
@@ -88,6 +121,7 @@ public class ButtonHandler : MonoBehaviour
         }
     }
 
+    //Pop Up Options Selected
     public void PopUpBackSelected()
     {
         if (ShikiPopUp.gameObject.activeSelf)
@@ -109,7 +143,6 @@ public class ButtonHandler : MonoBehaviour
             SetPopUpButtonsActive(false);
         }
     }
-
     public void PopUpBuySelected()
     {
 
@@ -121,11 +154,12 @@ public class ButtonHandler : MonoBehaviour
         AvatarButton_Active = active;
         PowerUpButton_Active = active;
         GemButton_Active = active;
+        BackButton_Active = active;
+
         SaberOptionButton_Active = active;
         RinOptionButton_Active = active;
         ShikiOptionButton_Active = active;
     }
-
     void SetPopUpButtonsActive(bool active)
     {
         PopUpBuy_Active = active;

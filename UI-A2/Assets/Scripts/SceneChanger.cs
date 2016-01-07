@@ -56,11 +56,32 @@ public class SceneChanger : MonoBehaviour
         }
     }
 
-    public void ChangeToShop()
+    public void ChangeToAvatarShop()
     {
         if (Input.GetMouseButtonUp(0))
         {
-            Application.LoadLevel("Shop");
+            Application.LoadLevel("Shop_Avatar");
+        }
+    }
+    public void ChangeToGemShop()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            Application.LoadLevel("Shop_Gem");
+        }
+    }
+    public void ChangeToVIPShop()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            Application.LoadLevel("Shop_VIP");
+        }
+    }
+    public void ChangeToPowerUpShop()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            Application.LoadLevel("Shop_PowerUp");
         }
     }
 
