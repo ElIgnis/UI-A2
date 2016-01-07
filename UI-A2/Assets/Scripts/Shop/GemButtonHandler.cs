@@ -15,21 +15,11 @@ public class GemButtonHandler : MonoBehaviour
     public Button Gem40OptionButton;
     public Button Gem60OptionButton;
     public Button Gem100OptionButton;
-    public Button Gem150OptionButton;
-    public Button Gem200OptionButton;
-    public Button Gem300OptionButton;
-    public Button Gem400OptionButton;
-    public Button Gem500OptionButton;
 
     public Image Gem20PopUp;
     public Image Gem40PopUp;
     public Image Gem60PopUp;
     public Image Gem100PopUp;
-    public Image Gem150PopUp;
-    public Image Gem200PopUp;
-    public Image Gem300PopUp;
-    public Image Gem400PopUp;
-    public Image Gem500PopUp;
 
     public Button PopUpBackButton;
     public Button PopUpBuyButton;
@@ -40,15 +30,10 @@ public class GemButtonHandler : MonoBehaviour
                 PowerUpButton_Active,
                 GemButton_Active,
                 BackButton_Active,
-                Gem20OptionButton_Active,
-                Gem40OptionButton_Active,
-                Gem60OptionButton_Active,
-                Gem100OptionButton_Active,
-                Gem150OptionButton_Active,
-                Gem200OptionButton_Active,
-                Gem300OptionButton_Active,
-                Gem400OptionButton_Active,
-                Gem500OptionButton_Active;
+                GemOption20Button_Active,
+                GemOption40Button_Active,
+                GemOption60Button_Active,
+                GemOption100Button_Active;
 
     //Pop up buttons
     private bool PopUpBack_Active,
@@ -56,15 +41,10 @@ public class GemButtonHandler : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //Gem20PopUp.gameObject.SetActive(false);
-        //Gem40PopUp.gameObject.SetActive(false);
-        //Gem60PopUp.gameObject.SetActive(false);
-        //Gem100PopUp.gameObject.SetActive(false);
-        //Gem150PopUp.gameObject.SetActive(false);
-        //Gem200PopUp.gameObject.SetActive(false);
-        //Gem300PopUp.gameObject.SetActive(false);
-        //Gem400PopUp.gameObject.SetActive(false);
-        //Gem500PopUp.gameObject.SetActive(false);
+        Gem20PopUp.gameObject.SetActive(false);
+        Gem40PopUp.gameObject.SetActive(false);
+        Gem60PopUp.gameObject.SetActive(false);
+        Gem100PopUp.gameObject.SetActive(false);
 
         VIPButton_Active = true;
         AvatarButton_Active = true;
@@ -72,18 +52,13 @@ public class GemButtonHandler : MonoBehaviour
         GemButton_Active = true;
         BackButton_Active = true;
 
-        Gem20OptionButton_Active = true;
-        Gem40OptionButton_Active = true;
-        Gem60OptionButton_Active = true;
-        Gem100OptionButton_Active = true;
-        Gem150OptionButton_Active = true;
-        Gem200OptionButton_Active = true;
-        Gem300OptionButton_Active = true;
-        Gem400OptionButton_Active = true;
-        Gem500OptionButton_Active = true;
+        GemOption20Button_Active = true;
+        GemOption40Button_Active = true;
+        GemOption60Button_Active = true;
+        GemOption100Button_Active = true;
 
-        //PopUpBuyButton.gameObject.SetActive(false);
-        //PopUpBackButton.gameObject.SetActive(false);
+        PopUpBuyButton.gameObject.SetActive(false);
+        PopUpBackButton.gameObject.SetActive(false);
 
         PopUpBack_Active = false;
         PopUpBuy_Active = false;
@@ -126,15 +101,70 @@ public class GemButtonHandler : MonoBehaviour
     }
 
     //Gem Options Selected
-    void GemOptionSelected()
+    public void GemOption20Selected()
     {
-
+        if(GemOption20Button_Active)
+        {
+            Gem20PopUp.gameObject.SetActive(true);
+            SetNonPopUpButtonsActive(false);
+            SetPopUpButtonsActive(true);
+        }
+    }
+    public void GemOption40Selected()
+    {
+        if (GemOption40Button_Active)
+        {
+            Gem40PopUp.gameObject.SetActive(true);
+            SetNonPopUpButtonsActive(false);
+            SetPopUpButtonsActive(true);
+        }
+    }
+    public void GemOption60Selected()
+    {
+        if (GemOption60Button_Active)
+        {
+            Gem60PopUp.gameObject.SetActive(true);
+            SetNonPopUpButtonsActive(false);
+            SetPopUpButtonsActive(true);
+        }
+    }
+    public void GemOption100Selected()
+    {
+        if (GemOption100Button_Active)
+        {
+            Gem100PopUp.gameObject.SetActive(true);
+            SetNonPopUpButtonsActive(false);
+            SetPopUpButtonsActive(true);
+        }
     }
 
     //Pop Up Options Selected
     public void PopUpBackSelected()
     {
-
+        if (Gem20PopUp.gameObject.activeSelf)
+        {
+            Gem20PopUp.gameObject.SetActive(false);
+            SetNonPopUpButtonsActive(true);
+            SetPopUpButtonsActive(false);
+        }
+        else if (Gem40PopUp.gameObject.activeSelf)
+        {
+            Gem40PopUp.gameObject.SetActive(false);
+            SetNonPopUpButtonsActive(true);
+            SetPopUpButtonsActive(false);
+        }
+        else if (Gem60PopUp.gameObject.activeSelf)
+        {
+            Gem60PopUp.gameObject.SetActive(false);
+            SetNonPopUpButtonsActive(true);
+            SetPopUpButtonsActive(false);
+        }
+        else if (Gem100PopUp.gameObject.activeSelf)
+        {
+            Gem100PopUp.gameObject.SetActive(false);
+            SetNonPopUpButtonsActive(true);
+            SetPopUpButtonsActive(false);
+        }
     }
     public void PopUpBuySelected()
     {
@@ -149,15 +179,10 @@ public class GemButtonHandler : MonoBehaviour
         GemButton_Active = active;
         BackButton_Active = active;
 
-        Gem20OptionButton_Active = active;
-        Gem40OptionButton_Active = active;
-        Gem60OptionButton_Active = active;
-        Gem100OptionButton_Active = active;
-        Gem150OptionButton_Active = active;
-        Gem200OptionButton_Active = active;
-        Gem300OptionButton_Active = active;
-        Gem400OptionButton_Active = active;
-        Gem500OptionButton_Active = active;
+        GemOption20Button_Active = active;
+        GemOption40Button_Active = active;
+        GemOption60Button_Active = active;
+        GemOption100Button_Active = active;
     }
     void SetPopUpButtonsActive(bool active)
     {
