@@ -48,7 +48,7 @@ public class ParentButtonScript : MonoBehaviour
     void Start()
     {
         isFlicked = false;
-        RotationSpeed = 400.0f;
+        RotationSpeed = 200.0f;
     }
 
     // Update is called once per frame

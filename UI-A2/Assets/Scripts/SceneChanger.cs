@@ -52,7 +52,7 @@ public class SceneChanger : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            Application.LoadLevel("InfoScreen");
+            Application.LoadLevel("Info");
         }
     }
 
