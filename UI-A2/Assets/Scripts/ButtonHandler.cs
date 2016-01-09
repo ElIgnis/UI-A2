@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class ParentButtonScript : MonoBehaviour
+public class ButtonHandler : MonoBehaviour
 {
     public Button PlayBtn;
     public Button CreditsBtn;
@@ -42,13 +42,44 @@ public class ParentButtonScript : MonoBehaviour
     private float initialTime, flickSpeed, RotationSpeed, holdTimer;
     private bool isFlicked;
 
-
-
     // Use this for initialization
     void Start()
     {
         isFlicked = false;
         RotationSpeed = 200.0f;
+
+        //Assign button positions
+        Vector3 zero = new Vector3(0, 0, 0);
+
+        //Prevent snapping if the wheel is not spun
+        if (PlayBtnPos != zero)
+        {
+            PlayBtn.transform.position = PlayBtnPos;
+        }
+        if (CreditsBtnPos != zero)
+        {
+            CreditsBtn.transform.position = CreditsBtnPos;
+        }
+        if (HSBtnPos != zero)
+        {
+            HSBtn.transform.position = HSBtnPos;
+        }
+        if (InfoBtnPos != zero)
+        {
+            InfoBtn.transform.position = InfoBtnPos;
+        }
+        if (ShopBtnPos != zero)
+        {
+            ShopBtn.transform.position = ShopBtnPos;
+        }
+        if (FLBtnPos != zero)
+        {
+            FLBtn.transform.position = FLBtnPos;
+        }
+        if (OptionBtnPos != zero)
+        {
+            OptionBtn.transform.position = OptionBtnPos;
+        }
     }
 
     // Update is called once per frame
