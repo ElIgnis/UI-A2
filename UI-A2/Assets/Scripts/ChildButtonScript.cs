@@ -15,6 +15,11 @@ public class ChildButtonScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if (Application.loadedLevelName == "Credits")
+        {
+            CreditsBtn.spriteState.pressedSprite = true;
+
+        }
         //Assign button positions
         Vector3 zero = new Vector3(0, 0, 0);
 

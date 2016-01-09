@@ -28,7 +28,7 @@ public class SceneChanger : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            Application.LoadLevel("LevelSelect");
+            Application.LoadLevel("StageSelect");
         }
     }
 
