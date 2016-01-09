@@ -17,7 +17,7 @@ public class ChildButtonScript : MonoBehaviour
     {
         if (Application.loadedLevelName == "Credits")
         {
-            CreditsBtn.spriteState.pressedSprite = true;
+            //PlayBtn.targetGraphic = 
 
         }
         //Assign button positions
