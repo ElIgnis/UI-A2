@@ -4,6 +4,12 @@ using UnityEngine.UI;
 
 public class VIPButtonHandler : MonoBehaviour
 {
+    //Currency
+    public Text MoneyOutput;
+    public Text GemOutput;
+
+    private int MoneyValue;
+    private int GemValue;
 
     //Main Buttons
     public Button VIPButton;
@@ -51,6 +57,22 @@ public class VIPButtonHandler : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if (PlayerPrefs.HasKey("MoneyValue"))
+        {
+            MoneyValue = PlayerPrefs.GetInt("MoneyValue");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("MoneyValue", 1000000);
+        }
+        if (PlayerPrefs.HasKey("GemValue"))
+        {
+            GemValue = PlayerPrefs.GetInt("GemValue");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("GemValue", 10000);
+        }
         VIP1_PopUp.gameObject.SetActive(false);
         VIP2_PopUp.gameObject.SetActive(false);
         VIP3_PopUp.gameObject.SetActive(false);
@@ -93,6 +115,16 @@ public class VIPButtonHandler : MonoBehaviour
             {
                 PurchaseFeedback.gameObject.SetActive(false);
             }
+        }
+
+        //Checking if modified
+        if (MoneyValue.ToString() != MoneyOutput.text)
+        {
+            MoneyOutput.text = MoneyValue.ToString();
+        }
+        if (GemValue.ToString() != GemOutput.text)
+        {
+            GemOutput.text = GemValue.ToString();
         }
     }
 

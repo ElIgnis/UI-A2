@@ -4,6 +4,13 @@ using UnityEngine.UI;
 
 public class GemButtonHandler : MonoBehaviour
 {
+    //Currency
+    public Text MoneyOutput;
+    public Text GemOutput;
+
+    private int MoneyValue;
+    private int GemValue;
+
     //Main Buttons
     public Button VIPButton;
     public Button AvatarButton;
@@ -46,6 +53,22 @@ public class GemButtonHandler : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if (PlayerPrefs.HasKey("MoneyValue"))
+        {
+            MoneyValue = PlayerPrefs.GetInt("MoneyValue");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("MoneyValue", 1000000);
+        }
+        if (PlayerPrefs.HasKey("GemValue"))
+        {
+            GemValue = PlayerPrefs.GetInt("GemValue");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("GemValue", 10000);
+        }
         Gem20PopUp.gameObject.SetActive(false);
         Gem40PopUp.gameObject.SetActive(false);
         Gem60PopUp.gameObject.SetActive(false);
@@ -86,6 +109,16 @@ public class GemButtonHandler : MonoBehaviour
             {
                 PurchaseFeedback.gameObject.SetActive(false);
             }
+        }
+
+        //Checking if modified
+        if (MoneyValue.ToString() != MoneyOutput.text)
+        {
+            MoneyOutput.text = MoneyValue.ToString();
+        }
+        if (GemValue.ToString() != GemOutput.text)
+        {
+            GemOutput.text = GemValue.ToString();
         }
     }
 
