@@ -6,28 +6,29 @@ public class ButtonAudio : MonoBehaviour
 {
     public AudioClip SoundToPlay;
     AudioSource audio;
-    public bool playSound;
+    public bool PlayIntro;
+
     // Use this for initialization
     void Start()
     {
-        
         audio = GetComponent<AudioSource>();
+        if(PlayIntro)
+        {
+            audio.PlayOneShot(SoundToPlay, 5.0f);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        
+    }
+
+    public void PlaySound()
+    {
+        if (!audio.isPlaying)
         {
-            if (!audio.isPlaying)
-            {
-                audio.PlayOneShot(SoundToPlay, 10);
-                playSound = true;
-            }
-            else
-            {
-                playSound = false;
-            }
+            audio.PlayOneShot(SoundToPlay, PlayerPrefs.GetFloat("SFXVolume") / 10.0f);
         }
     }
 }

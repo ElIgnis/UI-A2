@@ -5,6 +5,7 @@ public class SceneChanger : MonoBehaviour
 {
     private float Delay;
     private bool TriggerChange, ChangeScreen;
+    private string LoadScreen;
 
     // Use this for initialization
     void Start()
@@ -23,6 +24,10 @@ public class SceneChanger : MonoBehaviour
         {
             Delay = 0.0f;
         }
+        if (Delay > 0.3f)
+        {
+            Application.LoadLevel(LoadScreen);
+        }
     }
 
     void ChangeDelay()
@@ -35,7 +40,7 @@ public class SceneChanger : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             TriggerChange = true;
-            Application.LoadLevel("MainMenu");
+            LoadScreen = "MainMenu";
         }
     }
 
@@ -43,11 +48,8 @@ public class SceneChanger : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            TriggerChange = true;          
-        }
-        if(Delay > 0.4f)
-        {
-            Application.LoadLevel("StageSelect");
+            TriggerChange = true;
+            LoadScreen = "StageSelect";
         }
     }
 
@@ -55,7 +57,8 @@ public class SceneChanger : MonoBehaviour
     {
         if(Input.GetMouseButtonUp(0))
         {
-            Application.LoadLevel("Credits");
+            TriggerChange = true;
+            LoadScreen = "Credits";
         }
     }
 
@@ -63,7 +66,8 @@ public class SceneChanger : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            Application.LoadLevel("Highscore");
+            TriggerChange = true;
+            LoadScreen = "Highscore";
         }
     }
 
@@ -71,7 +75,8 @@ public class SceneChanger : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            Application.LoadLevel("Info");
+            TriggerChange = true;
+            LoadScreen = "Info";
         }
     }
 
@@ -79,28 +84,32 @@ public class SceneChanger : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            Application.LoadLevel("Shop_Avatar");
+            TriggerChange = true;
+            LoadScreen = "Shop_Avatar";
         }
     }
     public void ChangeToGemShop()
     {
         if (Input.GetMouseButtonUp(0))
         {
-            Application.LoadLevel("Shop_Gem");
+            TriggerChange = true;
+            LoadScreen = "Shop_Gem";
         }
     }
     public void ChangeToVIPShop()
     {
         if (Input.GetMouseButtonUp(0))
         {
-            Application.LoadLevel("Shop_VIP");
+            TriggerChange = true;
+            LoadScreen = "Shop_VIP";
         }
     }
     public void ChangeToPowerUpShop()
     {
         if (Input.GetMouseButtonUp(0))
         {
-            Application.LoadLevel("Shop_PowerUp");
+            TriggerChange = true;
+            LoadScreen = "Shop_PowerUp";
         }
     }
 
@@ -108,7 +117,8 @@ public class SceneChanger : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            Application.LoadLevel("FriendList");
+            TriggerChange = true;
+            LoadScreen = "FriendList";
         }
     }
 
@@ -116,7 +126,8 @@ public class SceneChanger : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            Application.LoadLevel("Option");
+            TriggerChange = true;
+            LoadScreen = "Option";
         }
     }
 }
