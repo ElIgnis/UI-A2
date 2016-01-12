@@ -6,10 +6,11 @@ public class ButtonAudio : MonoBehaviour
 {
     public AudioClip SoundToPlay;
     AudioSource audio;
-    private bool playSound;
+    public bool playSound;
     // Use this for initialization
     void Start()
     {
+        
         audio = GetComponent<AudioSource>();
     }
 
@@ -18,18 +19,14 @@ public class ButtonAudio : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            playSound = true;
-        }
-        else
-        {
-            playSound = false;
-        }
-
-        //if(playSound)
-        {
             if (!audio.isPlaying)
             {
-                //audio.PlayOneShot(SoundToPlay, 10);
+                audio.PlayOneShot(SoundToPlay, 10);
+                playSound = true;
+            }
+            else
+            {
+                playSound = false;
             }
         }
     }
