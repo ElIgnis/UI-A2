@@ -14,7 +14,7 @@ public class ButtonAudio : MonoBehaviour
         audio = GetComponent<AudioSource>();
         if(PlayIntro)
         {
-            audio.PlayOneShot(SoundToPlay, 5.0f);
+            audio.PlayOneShot(SoundToPlay, PlayerPrefs.GetFloat("SFXVolume") / 10.0f);
         }
     }
 
