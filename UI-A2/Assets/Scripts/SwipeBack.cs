@@ -19,7 +19,7 @@ public class SwipeBack : MonoBehaviour
     float Destination;  //Destination position
 
     public float TransitionSpeed;   //Speed of Transition
-    private Vector3 worldPos;
+    private Vector3 worldPos, initialPoint, endPoint;
 
     // Use this for initialization
     void Start()
@@ -50,9 +50,21 @@ public class SwipeBack : MonoBehaviour
         worldPos = InfoBarBG.transform.position;
     }
 
-    public void ReturnToMenu()
+    public void DragBegin()
     {
+        initialPoint = Input.mousePosition;
+    }
+
+    public void DragEnd()
+    {
+        endPoint = Input.mousePosition;
+        Vector3 difference = endPoint - initialPoint;
+
+        //Check for left drag
+        if (difference.x < 0)
+        {
             Swipe = true;
+        }
     }
 
     void InfoBarTransition()
