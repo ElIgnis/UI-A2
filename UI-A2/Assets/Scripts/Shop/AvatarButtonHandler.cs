@@ -31,9 +31,16 @@ public class AvatarButtonHandler : MonoBehaviour
                 SaberOptionButton_Active,
                 RinOptionButton_Active,
                 ShikiOptionButton_Active;
+
     //Pop up buttons
     private bool PopUpBack_Active,
                  PopUpBuy_Active;
+    
+    //Confirm Screen
+    public Image PurchaseFeedback;
+    private float FadeSpeed;
+    private Color defaultColor;
+
     // Use this for initialization
     void Start()
     {
@@ -53,14 +60,29 @@ public class AvatarButtonHandler : MonoBehaviour
         PopUpBuyButton.gameObject.SetActive(false);
         PopUpBackButton.gameObject.SetActive(false);
 
+        PurchaseFeedback.gameObject.SetActive(false);
+        defaultColor = PurchaseFeedback.gameObject.GetComponent<Image>().color;
+
+        FadeSpeed = 1;
+
         PopUpBack_Active = false;
         PopUpBuy_Active = false;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(PurchaseFeedback.gameObject.activeSelf)
+        {
+            Color c = PurchaseFeedback.gameObject.GetComponent<Image>().color;
+            c.a -= FadeSpeed * Time.deltaTime;
+            PurchaseFeedback.gameObject.GetComponent<Image>().color = c;
+            if(c.a < 0)
+            {
+                PurchaseFeedback.gameObject.SetActive(false);
+            }
+        }
     }
 
     //Main Wheel Selected
@@ -146,7 +168,8 @@ public class AvatarButtonHandler : MonoBehaviour
     }
     public void PopUpBuySelected()
     {
-
+        PurchaseFeedback.gameObject.SetActive(true);
+        PurchaseFeedback.gameObject.GetComponent<Image>().color = defaultColor;
     }
 
     void SetNonPopUpButtonsActive(bool active)
