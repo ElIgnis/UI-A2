@@ -47,6 +47,7 @@ public class VIPButtonHandler : MonoBehaviour
 
     //Confirm Screen
     public Image PurchaseFeedback;
+    public Image ErrorFeedback;
     private float FadeSpeed;
     private Color defaultColor;
 
@@ -92,6 +93,7 @@ public class VIPButtonHandler : MonoBehaviour
         VIP4_Active = true;
 
         PurchaseFeedback.gameObject.SetActive(false);
+        ErrorFeedback.gameObject.SetActive(false);
         defaultColor = PurchaseFeedback.gameObject.GetComponent<Image>().color;
 
         FadeSpeed = 1;
@@ -106,6 +108,7 @@ public class VIPButtonHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Feedback transition
         if (PurchaseFeedback.gameObject.activeSelf)
         {
             Color c = PurchaseFeedback.gameObject.GetComponent<Image>().color;
@@ -114,6 +117,18 @@ public class VIPButtonHandler : MonoBehaviour
             if (c.a < 0)
             {
                 PurchaseFeedback.gameObject.SetActive(false);
+            }
+        }
+
+        //Feedback Transition
+        if (ErrorFeedback.gameObject.activeSelf)
+        {
+            Color c = ErrorFeedback.gameObject.GetComponent<Image>().color;
+            c.a -= FadeSpeed * Time.deltaTime;
+            ErrorFeedback.gameObject.GetComponent<Image>().color = c;
+            if (c.a < 0)
+            {
+                ErrorFeedback.gameObject.SetActive(false);
             }
         }
 
@@ -226,8 +241,22 @@ public class VIPButtonHandler : MonoBehaviour
     }
     public void PopUpBuySelected()
     {
-        PurchaseFeedback.gameObject.SetActive(true);
-        PurchaseFeedback.gameObject.GetComponent<Image>().color = defaultColor;
+        if (VIP1_PopUp.gameObject.activeSelf)
+        {
+            BuyItem(20);
+        }
+        else if (VIP2_PopUp.gameObject.activeSelf)
+        {
+            BuyItem(40);
+        }
+        else if (VIP3_PopUp.gameObject.activeSelf)
+        {
+            BuyItem(60);
+        }
+        else if (VIP4_PopUp.gameObject.activeSelf)
+        {
+            BuyItem(80);
+        }
     }
 
     void SetNonPopUpButtonsActive(bool active)
@@ -250,5 +279,23 @@ public class VIPButtonHandler : MonoBehaviour
 
         PopUpBack_Active = active;
         PopUpBackButton.gameObject.SetActive(active);
+    }
+    void BuyItem(int price)
+    {
+        //Check if able to purchase
+        if (GemValue >= price)
+        {
+            GemValue -= price;
+            //Purchase successful Feedback
+            PurchaseFeedback.gameObject.SetActive(true);
+            PurchaseFeedback.gameObject.GetComponent<Image>().color = defaultColor;
+            PlayerPrefs.SetInt("GemValue", GemValue);
+        }
+        else
+        {
+            //Error Feedback
+            ErrorFeedback.gameObject.SetActive(true);
+            ErrorFeedback.gameObject.GetComponent<Image>().color = defaultColor;
+        }
     }
 }

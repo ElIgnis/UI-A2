@@ -220,6 +220,26 @@ public class GemButtonHandler : MonoBehaviour
     }
     public void PopUpBuySelected()
     {
+        if (Gem20PopUp.gameObject.activeSelf)
+        {
+            GemValue += 20;
+            PlayerPrefs.SetInt("GemValue", GemValue);
+        }
+        else if (Gem40PopUp.gameObject.activeSelf)
+        {
+            GemValue += 40;
+            PlayerPrefs.SetInt("GemValue", GemValue);
+        }
+        else if (Gem60PopUp.gameObject.activeSelf)
+        {
+            GemValue += 60;
+            PlayerPrefs.SetInt("GemValue", GemValue);
+        }
+        else if (Gem100PopUp.gameObject.activeSelf)
+        {
+            GemValue += 100;
+            PlayerPrefs.SetInt("GemValue", GemValue);
+        }
         PurchaseFeedback.gameObject.SetActive(true);
         PurchaseFeedback.gameObject.GetComponent<Image>().color = defaultColor;
     }
