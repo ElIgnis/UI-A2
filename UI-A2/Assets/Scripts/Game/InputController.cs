@@ -7,10 +7,13 @@ public class InputController : MonoBehaviour {
 	public Image thumpad;
 	public Image background;
 	public Button fireButton;
+	public Text Highscore;
 	public GameObject player;
 	public GameObject projectileManager;
+	public GameObject uiManager;
+	public GameObject gamestateManager;
 	public float fireRate, timePassed;
-	public static bool moveBack, moving, shoot;
+	public static bool moveBack, moving, shoot, pausebuttonPressed;
 
 	// Use this for initialization
 	void Start () {
@@ -51,38 +54,101 @@ public class InputController : MonoBehaviour {
 			player.transform.position = Camera.main.ViewportToWorldPoint(pos);
 		}
 
-		if (shoot && timePassed > fireRate) {
+		if (shoot && timePassed > fireRate && player.GetComponent<Player> ().resource > 0) {
 			timePassed = 0;
 			((BulletManager)projectileManager.GetComponent (typeof(BulletManager))).AddPlayerBullet ();
+			player.GetComponent<Player> ().resource -= 3;
+		}
+		else if (!shoot && player.GetComponent<Player> ().resource < 100) {
+			player.GetComponent<Player>().resource += 10 * Time.deltaTime;
+			if(player.GetComponent<Player>().resource > 100) {
+				player.GetComponent<Player>().resource = 100;
+			}
 		}
 
 		timePassed += Time.deltaTime;
 	}
 
 	public void Dragging(){
-		moveBack = false;
-		float lengthLimit = background.rectTransform.rect.width / 2;
-		Vector3 origin = background.rectTransform.position;
-		Vector3 newPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 1.0f);
-		Vector3 direction = newPos - origin;
-		if ((newPos - origin).magnitude > lengthLimit) {
-			newPos = origin + direction.normalized * lengthLimit;
-		}
-		thumpad.rectTransform.position = newPos;
+		if (!gamestateManager.GetComponent<GameStateManager> ().pausegame && ! gamestateManager.GetComponent<GameStateManager> ().gameover) {
+			moveBack = false;
+			float lengthLimit = background.rectTransform.rect.width / 2;
+			Vector3 origin = background.rectTransform.position;
+			Vector3 newPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 1.0f);
+			Vector3 direction = newPos - origin;
+			if ((newPos - origin).magnitude > lengthLimit) {
+				newPos = origin + direction.normalized * lengthLimit;
+			}
+			thumpad.rectTransform.position = newPos;
 
-		moving = true;
+			moving = true;
+		}
 	}
 	
 	public void EndDragging(){
-		moveBack = true;
-		moving = false;
+		if (!gamestateManager.GetComponent<GameStateManager> ().pausegame && ! gamestateManager.GetComponent<GameStateManager> ().gameover) {
+			moveBack = true;
+			moving = false;
+		}
 	}
 
 	public void Fire(){
-		shoot = true;
+		if (!gamestateManager.GetComponent<GameStateManager> ().pausegame && ! gamestateManager.GetComponent<GameStateManager> ().gameover) {
+			shoot = true;
+		}
 	}
 
 	public void StopFire(){
-		shoot = false;
+		if (!gamestateManager.GetComponent<GameStateManager> ().pausegame && ! gamestateManager.GetComponent<GameStateManager> ().gameover) {
+			shoot = false;
+		}
+	}
+
+	public void UseBombSkill(){
+		if (!gamestateManager.GetComponent<GameStateManager> ().pausegame && ! gamestateManager.GetComponent<GameStateManager> ().gameover) {
+			((BulletManager)projectileManager.GetComponent (typeof(BulletManager))).ClearEnemyBullet ();
+		}
+	}
+
+	public void PausePressed(){
+		HandlePause ();
+	}
+
+	public void HandlePause(){
+		if (!gamestateManager.GetComponent<GameStateManager> ().pausegame && !gamestateManager.GetComponent<GameStateManager> ().gameover) {
+			Time.timeScale = 0;
+			gamestateManager.GetComponent<GameStateManager> ().pausegame = true;
+			return;
+		}
+
+		if (gamestateManager.GetComponent<GameStateManager> ().pausegame && !gamestateManager.GetComponent<GameStateManager> ().gameover) {
+			Time.timeScale = 1;
+			gamestateManager.GetComponent<GameStateManager> ().pausegame = false;
+			return;
+		}
+	}
+
+	public void ContinueGame(){
+		if (!gamestateManager.GetComponent<GameStateManager> ().enterhighscore) {
+			player.GetComponent<Player> ().health = 100;
+			Time.timeScale = 1;
+			gamestateManager.GetComponent<GameStateManager> ().gameover = false;
+		}
+	}
+
+	public void RestartGame(){
+		if (!gamestateManager.GetComponent<GameStateManager> ().enterhighscore) {
+			player.GetComponent<Player> ().Reset ();
+			Highscore.text = "0";
+			projectileManager.GetComponent<BulletManager> ().ClearAllBullet ();
+			Time.timeScale = 1;
+			gamestateManager.GetComponent<GameStateManager> ().gameover = false;
+		}
+	}
+
+	public void MainMenu(){
+		if (!gamestateManager.GetComponent<GameStateManager> ().enterhighscore) {
+			gamestateManager.GetComponent<GameStateManager> ().enterhighscore = true;
+		}
 	}
 }

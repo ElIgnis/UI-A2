@@ -18,6 +18,10 @@ public class Bullet : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col){
 		if (col.gameObject.tag == "Player") {
+			col.gameObject.GetComponent<Player>().health -= 5;
+			if(col.gameObject.GetComponent<Player>().health < 0){
+				col.gameObject.GetComponent<Player>().health = 0;
+			}
 			Destroy(gameObject);
 		}
 		else if (col.gameObject.tag == "Enemy") {

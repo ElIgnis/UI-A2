@@ -84,4 +84,16 @@ public class BulletManager : MonoBehaviour {
 			}
 		}
 	}
+
+	public void ClearAllBullet(){
+		for (int i = 0; i < BulletList.Count; ++i) {
+				Destroy(BulletList[i]);
+		}
+		
+		for (int i = 0; i < BulletList.Count; ++i) {
+			if(BulletList[i] == null) {
+				BulletList.RemoveAt(i);
+			}
+		}
+	}
 }
