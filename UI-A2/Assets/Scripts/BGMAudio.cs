@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(AudioSource))]
 public class BGMAudio : MonoBehaviour {
 
-    public AudioClip SoundToPlay;
+    public AudioClip[] SoundToPlay;
     AudioSource audio;
     public static BGMAudio Instance;
 
@@ -21,18 +21,26 @@ public class BGMAudio : MonoBehaviour {
             {
                 DontDestroyOnLoad(this);
                 Instance = this;
+                audio = GetComponent<AudioSource>();
             }          
         }
-        audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-       
         if (!audio.isPlaying)
         {
-            audio.PlayOneShot(SoundToPlay, PlayerPrefs.GetFloat("BGMVolume") / 10.0f);
+            if(Application.loadedLevelName == "Splash")
+            {
+                audio.PlayOneShot(SoundToPlay[0], PlayerPrefs.GetFloat("BGMVolume") / 10.0f);
+            }
+            else
+            {
+                audio.PlayOneShot(SoundToPlay[1], PlayerPrefs.GetFloat("BGMVolume") / 10.0f);
+            }
+            
+            //SoundToPlay
         }
         audio.volume = PlayerPrefs.GetFloat("BGMVolume") / 10.0f;
     }
