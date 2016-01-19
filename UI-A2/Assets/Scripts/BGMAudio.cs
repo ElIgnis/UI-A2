@@ -5,24 +5,33 @@ using System.Collections;
 public class BGMAudio : MonoBehaviour {
 
     public AudioClip[] SoundToPlay;
-    AudioSource audio;
-    public static BGMAudio Instance;
+    public static AudioSource audio;
+    //public static BGMAudio Instance;
+    public static bool changeAudio;
 
     // Use this for initialization
     void Start()
     {
-        if (Application.loadedLevelName != "Game")
+        DontDestroyOnLoad(this);
+        //if (Application.loadedLevelName != "Game")
+        //{
+        //    if(Instance)
+        //    {
+        //        DestroyImmediate(this);
+        //    }
+        //    else
+        //    {
+
+        //        Instance = this;               
+        //    }          
+        //}
+        audio = GetComponent<AudioSource>();
+        audio.loop = true;
+        changeAudio = false;
+
+        if (Application.loadedLevelName == "Splash")
         {
-            if(Instance)
-            {
-                DestroyImmediate(this);
-            }
-            else
-            {
-                DontDestroyOnLoad(this);
-                Instance = this;
-                audio = GetComponent<AudioSource>();
-            }          
+            audio.clip = SoundToPlay[0];
         }
     }
 
@@ -30,17 +39,16 @@ public class BGMAudio : MonoBehaviour {
     void Update()
     {
         if (!audio.isPlaying)
+        {          
+            audio.Play();
+        }
+
+        if (changeAudio)
         {
-            if(Application.loadedLevelName == "Splash")
-            {
-                audio.PlayOneShot(SoundToPlay[0], PlayerPrefs.GetFloat("BGMVolume") / 10.0f);
-            }
-            else
-            {
-                audio.PlayOneShot(SoundToPlay[1], PlayerPrefs.GetFloat("BGMVolume") / 10.0f);
-            }
-            
-            //SoundToPlay
+            audio.Stop();
+            audio.clip = SoundToPlay[1];
+            audio.Play();
+            changeAudio = false;
         }
         audio.volume = PlayerPrefs.GetFloat("BGMVolume") / 10.0f;
     }

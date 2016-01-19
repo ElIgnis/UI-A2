@@ -41,6 +41,8 @@ public class SceneChanger : MonoBehaviour
         {
             TriggerChange = true;
             LoadScreen = "MainMenu";
+            BGMAudio.audio.Stop();
+            BGMAudio.changeAudio = true;
         }
     }
 
@@ -128,6 +130,15 @@ public class SceneChanger : MonoBehaviour
         {
             TriggerChange = true;
             LoadScreen = "Option";
+        }
+    }
+
+    public void ChangeToGame()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            TriggerChange = true;
+            LoadScreen = "Game";
         }
     }
 }
