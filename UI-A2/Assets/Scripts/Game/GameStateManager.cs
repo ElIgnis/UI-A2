@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameStateManager : MonoBehaviour {
 
-	public GameObject player;
+	public GameObject player, uiManager;
 	public bool gameover = false;
 	public bool pausegame = false;
 	public bool enterhighscore = false;
@@ -18,6 +18,7 @@ public class GameStateManager : MonoBehaviour {
 		if (player.GetComponent<Player> ().health <= 0) {
 			Time.timeScale = 0;
 			gameover = true;
+			uiManager.GetComponent<UIManager>().UIGameOver();
 		}
 	}
 }

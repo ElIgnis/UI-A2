@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
-	public GameObject projectileManager;
+	public GameObject projectileManager, gamestateManager;
 	public float fireRate, timePassed;
 
 	// Use this for initialization
@@ -15,9 +15,11 @@ public class Enemy : MonoBehaviour {
 	void Update () {
 	
 		if (timePassed > fireRate) {
-			((BulletManager)projectileManager.GetComponent (typeof(BulletManager))).AddEnemyBullet();
+			projectileManager.GetComponent <BulletManager>().AddEnemyBullet();
 			timePassed = 0f;
 		}
-		timePassed += Time.deltaTime;
+		if (!gamestateManager.GetComponent<GameStateManager> ().pausegame) {
+			timePassed += Time.deltaTime;
+		}
 	}
 }

@@ -71,6 +71,32 @@ public class BulletManager : MonoBehaviour {
 		BulletList.Add (clone);
 	}
 
+	public void PauseBulletUpdate(){
+		for (int i = 0; i < BulletList.Count; ++i) {
+			if(BulletList[i] == null) {
+				BulletList.RemoveAt(i);
+				continue;
+			}
+			BulletList[i].GetComponent<Rigidbody2D>().isKinematic = true;
+		}
+	}
+
+	public void UnPauseBulletUpdate(){
+		for (int i = 0; i < BulletList.Count; ++i) {
+			BulletList[i].GetComponent<Rigidbody2D>().isKinematic = false;
+			if(BulletList[i] == null) {
+				BulletList.RemoveAt(i);
+				continue;
+			}
+			if(BulletList[i].tag == "EnemyBullet"){
+				BulletList[i].GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -100));
+			}
+			else{
+				BulletList[i].GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 100));
+			}
+		}
+	}
+
 	public void ClearEnemyBullet(){
 		for (int i = 0; i < BulletList.Count; ++i) {
 			if(BulletList[i].tag == "EnemyBullet"){
