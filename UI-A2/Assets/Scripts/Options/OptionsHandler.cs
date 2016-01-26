@@ -4,25 +4,17 @@ using UnityEngine.UI;
 
 public class OptionsHandler : MonoBehaviour
 {
-    public Button Button_1Hand;
-    public Button Button_2Hand;
     public Button Button_Right;
     public Button Button_Left;
 
     public Button ConfirmButton;
 
-    public Sprite Image_1Hand;
-    public Sprite Image_2Hand;
     public Sprite Image_Right;
     public Sprite Image_Left;
 
-    public Sprite Image_1Hand_Active;
-    public Sprite Image_2Hand_Active;
     public Sprite Image_Right_Active;
     public Sprite Image_Left_Active;
 
-    private bool Active_1Hand;
-    private bool Active_2Hand;
     private bool Active_Right;
     private bool Active_Left;
 
@@ -67,23 +59,6 @@ public class OptionsHandler : MonoBehaviour
             PlayerPrefs.SetFloat("SFXVolume", SFXSlider.value);
         }
 
-        if (PlayerPrefs.HasKey("Playstyle"))
-        {
-            if (PlayerPrefs.GetInt("Playstyle") == 1)
-            {
-                Button_1Hand.image.sprite = Image_1Hand_Active;
-                Button_2Hand.image.sprite = Image_2Hand;
-            }
-            else
-            {
-                Button_2Hand.image.sprite = Image_2Hand_Active;
-                Button_1Hand.image.sprite = Image_1Hand;
-            }
-        }
-        else
-        {
-            PlayerPrefs.SetInt("Playstyle",1);
-        }
         if (PlayerPrefs.HasKey("RightLeft"))
         {
             if (PlayerPrefs.GetInt("RightLeft") == 1)
@@ -133,17 +108,6 @@ public class OptionsHandler : MonoBehaviour
         }
     }
 
-    public void Button1HandSelected()
-    {
-        Button_1Hand.image.sprite = Image_1Hand_Active;
-        Button_2Hand.image.sprite = Image_2Hand;
-    }
-    public void Button2HandSelected()
-    {
-        Button_2Hand.image.sprite = Image_2Hand_Active;
-        Button_1Hand.image.sprite = Image_1Hand;
-    }
-
     public void ButtonRightSelected()
     {
         Button_Right.image.sprite = Image_Right_Active;
@@ -165,15 +129,6 @@ public class OptionsHandler : MonoBehaviour
         else
         {
             PlayerPrefs.SetInt("RightLeft", 1);
-        }
-
-        if (Button_2Hand.image.sprite == Image_2Hand_Active)
-        {
-            PlayerPrefs.SetInt("Playstyle", 0);
-        }
-        else
-        {
-            PlayerPrefs.SetInt("Playstyle", 1);
         }
 
         PlayerPrefs.SetFloat("BGMVolume", BGMValue);
