@@ -25,5 +25,6 @@ public class FriendListButton : MonoBehaviour {
 
 	public void ConfirmationPressed(){
 		ConfirmationUI.SetActive (false);
+        duelButtonPressed = false;
 	}
 }
