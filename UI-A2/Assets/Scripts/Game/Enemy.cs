@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour {
 			projectileManager.GetComponent <BulletManager>().AddEnemyBullet();
 			timePassed = 0f;
 		}
-		if (!gamestateManager.GetComponent<GameStateManager> ().pausegame) {
+		if (!gamestateManager.GetComponent<GameStateManager> ().pausegame && !gamestateManager.GetComponent<GameStateManager> ().gameover) {
 			timePassed += Time.deltaTime;
 		}
 	}

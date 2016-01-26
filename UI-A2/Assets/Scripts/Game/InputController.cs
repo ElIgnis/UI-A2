@@ -41,7 +41,6 @@ public class InputController : MonoBehaviour {
 					Vector3 pos = Camera.main.ScreenToViewportPoint(touch.position);
 					if(pos.x <= 0.5f){
 						LeftFinger = touch;
-						Debug.Log("Set Finger" + touch.position);
 						break;
 					}
 				}
@@ -50,7 +49,6 @@ public class InputController : MonoBehaviour {
 			if (moving) {
 				Vector3 origin = background.rectTransform.position;
 				Vector3 newPos = new Vector3 (LeftFinger.position.x, LeftFinger.position.y, 1.0f);
-				Debug.Log(Input.mousePosition);
 				Vector3 direction = newPos - origin;
 
 				Vector3 Translation = direction.normalized * player.GetComponent<Player>().moveSpeed;
@@ -92,7 +90,6 @@ public class InputController : MonoBehaviour {
 			float lengthLimit = background.rectTransform.rect.width / 2;
 			Vector3 origin = background.rectTransform.position;
 			Vector3 newPos = new Vector3 (LeftFinger.position.x, LeftFinger.position.y, 1.0f);
-			Debug.Log("Touch" + LeftFinger.position);
 			Vector3 direction = newPos - origin;
 			if ((newPos - origin).magnitude > lengthLimit) {
 				newPos = origin + direction.normalized * lengthLimit;
@@ -167,7 +164,7 @@ public class InputController : MonoBehaviour {
 	public void ContinueGame(){
 		if (!gamestateManager.GetComponent<GameStateManager> ().enterhighscore) {
 			player.GetComponent<Player> ().health = 100;
-			Time.timeScale = 1;
+			projectileManager.GetComponent<BulletManager>().UnPauseBulletUpdate();
 			gamestateManager.GetComponent<GameStateManager> ().gameover = false;
 			EndDragging();
 			uiManager.GetComponent<UIManager>().UIGameOverReset();
@@ -178,7 +175,6 @@ public class InputController : MonoBehaviour {
 		if (!gamestateManager.GetComponent<GameStateManager> ().enterhighscore) {
 			player.GetComponent<Player> ().Reset ();
 			projectileManager.GetComponent<BulletManager> ().ClearAllBullet ();
-			Time.timeScale = 1;
 			uiManager.GetComponent<UIManager>().UIResetHighscore();
 
 			if(gamestateManager.GetComponent<GameStateManager> ().pausegame){
@@ -199,5 +195,9 @@ public class InputController : MonoBehaviour {
 			gamestateManager.GetComponent<GameStateManager> ().enterhighscore = true;
 			uiManager.GetComponent<UIManager>().UIHighscore();
 		}
+	}
+
+	public void BackToMenu(){
+		Application.LoadLevel ("MainMenu");
 	}
 }
