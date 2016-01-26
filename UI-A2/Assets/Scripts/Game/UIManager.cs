@@ -64,7 +64,7 @@ public class UIManager : MonoBehaviour {
 			PlayerPrefs.SetFloat("SFXVolume", SFXSlider.value);
 		}
 
-		if (PlayerPrefs.HasKey ("Playstyle")) {
+		if (PlayerPrefs.HasKey ("RightLeft")) {
 			if (PlayerPrefs.GetInt ("RightLeft") == 1) {
 				RightHand.SetActive (true);
 				LeftHand.SetActive (false);
